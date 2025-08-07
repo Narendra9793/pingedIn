@@ -22,29 +22,30 @@ import org.springframework.web.bind.annotation.RequestPart;
 
 @RestController()
 @RequestMapping("/api/")
-@CrossOrigin("localhost//:3000")
+@CrossOrigin("https://www.linkedin.com")
 public class PingedInController {
     @Autowired
     private PingedInService pingedInService;
 
+    //http:localhost:6060/api/ping
     @GetMapping("ping")
     public ResponseEntity<?> getMethodName(@RequestParam String param) {
         return ResponseEntity.ok().body("PingedIn Server is running fine.");
     }
 
+    //http:localhost:6060/api/message
     @PostMapping("message")
     public ResponseEntity<?> generatemessage(@RequestBody Message message ) {
         return ResponseEntity.ok().body(pingedInService.generateMessage(message));
     }
 
+    //http:localhost:6060/api/referral
    @PostMapping(value = "/referral", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> getReferral(@RequestPart("file") MultipartFile file,@RequestPart("JobId") String jobId, @RequestPart("JobDescription") String jobDescription, @RequestPart("condidateResumeContent") String resumeContent) {
+    public ResponseEntity<?> getReferral(@RequestPart("file") MultipartFile file,@RequestPart("JobId") String jobId, @RequestPart("JobDescription") String jobDescription) {
         Referral referral = new Referral();
         referral.setFile(file);
         referral.setJobId(jobId);
         referral.setJobDescription(jobDescription);
-        referral.setCondidateResumeContent(resumeContent);
-
         return ResponseEntity.ok(pingedInService.generateReferral(referral));
     }
 
