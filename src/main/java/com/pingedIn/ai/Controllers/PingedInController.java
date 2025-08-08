@@ -29,7 +29,7 @@ public class PingedInController {
 
     //http:localhost:6060/api/ping
     @GetMapping("ping")
-    public ResponseEntity<?> getMethodName(@RequestParam String param) {
+    public ResponseEntity<?> pinging() {
         return ResponseEntity.ok().body("PingedIn Server is running fine.");
     }
 
